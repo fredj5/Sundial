@@ -35,6 +35,14 @@ public class Registration extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        registerBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
+
+            }
+        });
 
         registerUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
