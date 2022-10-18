@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "884820223636",
+    "project_id": "sundial-eastblock",
+    "storage_bucket": "sundial-eastblock.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884820223636:android:4c9cbaedc8c8da5fa8f681",
+        "android_client_info": {
+          "package_name": "com.example.sundial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884820223636-15p9h8bta74fs3sjeqsa001005qthfca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi_ZSzYtbGY18mh6JHsd_T2PEvS2lJAw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884820223636-15p9h8bta74fs3sjeqsa001005qthfca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

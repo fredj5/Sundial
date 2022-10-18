@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Sundial</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="protect_yourself">PROTECT YOURSELF</string>
+    <string name="the_sun_is_stronger_than_you">THE SUN IS STRONGER THAN YOU</string>
+    <string name="app_logo">app logo</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="login">LOGIN</string>
+</resources>
