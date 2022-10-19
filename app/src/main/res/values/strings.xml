@@ -7,4 +7,12 @@
     <string name="app_logo">app logo</string>
     <string name="enter_username">Enter Username</string>
     <string name="login">LOGIN</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="verify_your_email_address">VERIFY YOUR EMAIL ADDRESS</string>
+    <string name="verify">verify</string>
+    <string name="logout">logout</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="new_to_sundial_register_below">New to Sundial? Register below</string>
 </resources>
