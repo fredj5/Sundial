@@ -57,7 +57,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         // Login success
-                        startActivity(new Intent(getApplicationContext(), NavigationActivity.class ));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class ));
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -75,7 +75,7 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+             startActivity(new Intent(getApplicationContext(), Verify.class));
              finish();
         }
     }

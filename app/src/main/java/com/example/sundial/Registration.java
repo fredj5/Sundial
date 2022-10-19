@@ -87,7 +87,7 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         // Send the user to the next page
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), Verify.class));
                         finish();
 
                     }
