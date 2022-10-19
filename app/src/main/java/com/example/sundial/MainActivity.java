@@ -3,15 +3,24 @@ package com.example.sundial;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sundial.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -48,12 +57,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Check your spam folder if the email is not in your main inbox", Toast.LENGTH_LONG).show();
                         verifyEmailBtn.setVisibility(View.GONE);
                         verifyMessage.setVisibility(View.GONE);
+                        startActivity(new Intent(getApplicationContext(), NavigationActivity.class));
                     }
                 });
             }
         });
-
-
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,4 +15,8 @@
     <string name="logout">logout</string>
     <string name="dashboard">Dashboard</string>
     <string name="new_to_sundial_register_below">New to Sundial? Register below</string>
+    <string name="title_home">Home</string>
+    <string name="title_info">Info</string>
+    <string name="title_sun">Sun</string>
+    <string name="title_stats">Stats</string>
 </resources>
