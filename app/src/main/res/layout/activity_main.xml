@@ -24,7 +24,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="#F96800"
         android:text="@string/logout"
-        android:textColor="#3E2723"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#F96800"
         android:text="@string/verify"
-        android:textColor="#3E2723"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
