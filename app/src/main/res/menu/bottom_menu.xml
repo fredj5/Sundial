@@ -17,8 +17,8 @@
         android:title="Info"/>
 
     <item
-        android:id="@+id/navigation_stats"
+        android:id="@+id/navigation_personal"
         android:icon="@drawable/ic_action_stats"
-        android:title="Stats"/>
+        android:title="Personal"/>
 
 </menu>

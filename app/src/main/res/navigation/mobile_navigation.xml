@@ -24,9 +24,9 @@
         tools:layout="@layout/fragment_sun" />
 
     <fragment
-        android:id="@+id/navigation_stats"
-        android:name="com.example.sundial.stats.StatsFragment"
-        android:label="@string/title_stats"
-        tools:layout="@layout/fragment_stats" />
+        android:id="@+id/navigation_personal"
+        android:name="com.example.sundial.personal.PersonalFragment"
+        android:label="@string/title_personal"
+        tools:layout="@layout/fragment_personal" />
 
 </navigation>

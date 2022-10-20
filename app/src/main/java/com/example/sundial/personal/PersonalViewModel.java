@@ -1,16 +1,16 @@
-package com.example.sundial.stats;
+package com.example.sundial.personal;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class StatsViewModel extends ViewModel {
+public class PersonalViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public StatsViewModel() {
+    public PersonalViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is stats fragment");
+        mText.setValue("This is personal fragment");
     }
 
     public LiveData<String> getText() {

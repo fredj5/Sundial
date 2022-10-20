@@ -1,4 +1,4 @@
-package com.example.sundial.stats;
+package com.example.sundial.personal;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,24 +8,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sundial.databinding.FragmentStatsBinding;
+import com.example.sundial.databinding.FragmentPersonalBinding;
+import com.example.sundial.databinding.FragmentPersonalBinding;
 
-public class StatsFragment extends Fragment {
+public class PersonalFragment extends Fragment {
 
-    private FragmentStatsBinding binding;
+    private FragmentPersonalBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        StatsViewModel statsViewModel =
-                new ViewModelProvider(this).get(StatsViewModel.class);
+        PersonalViewModel personalViewModel =
+                new ViewModelProvider(this).get(PersonalViewModel.class);
 
-        binding = FragmentStatsBinding.inflate(inflater, container, false);
+        binding = FragmentPersonalBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textStats;
-        statsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        personalViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
