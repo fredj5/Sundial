@@ -19,7 +19,8 @@
     <string name="title_info">Info</string>
     <string name="title_sun">Sun</string>
     <string name="title_personal">Personal</string>
-    <string name="text_info">Benefits
-The production of vitamin D, a vitamin essential to human health.
-Vitamin D helps the body absorb calcium and phosphorus from food and assists bone development. The World Health Organization (WHO) recommends 5 to 15 minutes of sun exposure 2 to 3 times a week.</string>
+    <string name="UVtext">UV Index = 2</string>
+    <string name="location_text">"Latitude: %1$.4f \n Longitude: %2$.4f\n Timestamp: %3$tr"</string>
+    <string name="location_permission_denied">Permission Denied</string>
+    <string name="no_location">No Location</string>
 </resources>
