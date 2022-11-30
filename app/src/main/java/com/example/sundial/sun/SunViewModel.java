@@ -25,6 +25,8 @@ public class SunViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
+    Button locationBtn;
+
     public SunViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is sun fragment");

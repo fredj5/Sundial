@@ -1,67 +1,56 @@
 package com.example.sundial;
 
-
 import android.Manifest;
-import android.content.Intent;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.sundial.databinding.ActivityMainBinding;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class MainActivity extends AppCompatActivity {
-
+public class SunActivity extends AppCompatActivity {
 
     final int REQUEST_LOCATION_PERMISSION = 1;
     FusedLocationProviderClient mFusedLocationClient;
     TextView mLocationTextView;
+    Button getLoc;
     Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_home, R.id.navigation_sun, R.id.navigation_personal, R.id.navigation_info)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-        System.out.println("==================================================");
-        System.out.println("Curr Dest: " + navController.getCurrentDestination());
-        System.out.println("==================================================");
+        setContentView(R.layout.fragment_sun);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        getLocation();
+        mLocationTextView = findViewById(R.id.locText);
 
-        }
+        getLoc = findViewById(R.id.locationBtn);
+
+        getLoc.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                getLocation();
+
+            }
+
+        });
+
+
+    }
 
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -76,10 +65,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(Location location) {
                     if (location != null) {
                         mLastLocation = location;
-                        System.out.println("location found");
-
+                        mLocationTextView.setText(
+                                getString(R.string.location_text,
+                                        mLastLocation.getLatitude(),
+                                        mLastLocation.getLongitude(),
+                                        mLastLocation.getTime()));
                     } else {
-                        System.out.println("no location");;
+                        mLocationTextView.setText(R.string.no_location);
                     }
                 }
             });
@@ -100,5 +92,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
 }
