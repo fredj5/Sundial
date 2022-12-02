@@ -49,6 +49,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class PersonalFragment extends Fragment {
 
@@ -145,7 +146,7 @@ public class PersonalFragment extends Fragment {
                         Picasso.get().load(banner).into(coverDisplay);
                     }
                     catch (Exception e) {
-
+                        Picasso.get().load(R.drawable.ic_action_sun).into(coverDisplay);
                     }
                 }
             }
@@ -156,12 +157,7 @@ public class PersonalFragment extends Fragment {
         });
 
         // Edit profile button click
-        edit_profile_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showEditProfilePage();
-            }
-        });
+        edit_profile_button.setOnClickListener(view1 -> showEditProfilePage());
 
         return view;
     }
@@ -301,9 +297,9 @@ public class PersonalFragment extends Fragment {
         builder.setTitle("Choose Image From");
         builder.setItems(edit_options, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface dialogInterface, int which) {
                 // Click handling
-                if (i == 0) {
+                if (which == 0) {
                     // Camera click
                     if (!checkCameraPermission()) {
                         requestCameraPermission();
@@ -312,7 +308,7 @@ public class PersonalFragment extends Fragment {
                         pickFromCamera();
                     }
                 }
-                else if (i == 1) {
+                else if (which == 1) {
                     // Gallery click
                     if(!checkStoragePermission()) {
                         requestStoragePermission();
@@ -352,7 +348,7 @@ public class PersonalFragment extends Fragment {
                 if (grantResults.length > 0) {
                     boolean writeStorageAllowed = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                     if (writeStorageAllowed) {
-                        // Enabled, choose from camera
+                        // Enabled, choose from gallery
                         pickFromGallery();
                     } else {
                         Toast.makeText(getActivity(), "Enable storage permission", Toast.LENGTH_SHORT).show();
@@ -360,8 +356,10 @@ public class PersonalFragment extends Fragment {
                 }
             }
             break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
     }
 
     @Override
@@ -385,7 +383,6 @@ public class PersonalFragment extends Fragment {
     private void uploadProfileImage(Uri uri) {
         // Progress
         progressDialog.show();
-
         // The path and name of the image to be stored in firebase
         String filePathAndName = storagePath + "" + profileOrCoverPhoto + "_" + user.getUid();
 
