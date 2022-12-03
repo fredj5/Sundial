@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.google.firebase.FirebaseApp.getInstance;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -67,6 +69,10 @@ public class PersonalFragment extends Fragment {
     ImageView profileAvatar, coverDisplay;
     TextView nameDisplay, emailDisplay;
     FloatingActionButton edit_profile_button;
+    ImageButton calculateButton;
+    EditText enterWeight;
+    TextView dailyDoseRec;
+    TextView dailyRecSentence;
 
     // dialogue
     ProgressDialog progressDialog;
@@ -116,9 +122,38 @@ public class PersonalFragment extends Fragment {
         nameDisplay = view.findViewById(R.id.nameDisplay);
         emailDisplay = view.findViewById(R.id.emailDisplay);
         edit_profile_button = view.findViewById(R.id.edit_profile_button);
+        dailyDoseRec = view.findViewById(R.id.dailyDoseRec);
+        dailyRecSentence = view.findViewById(R.id.dailyRecSentence);
 
         // Initialize progress dialogue
         progressDialog = new ProgressDialog(getActivity());
+
+        // Calculate button listener
+        calculateButton = (ImageButton) view.findViewById(R.id.doubleArrowBtn);
+        enterWeight = (EditText) view.findViewById(R.id.enterWeight);
+        dailyDoseRec = (TextView) view.findViewById(R.id.dailyDoseRec);
+
+
+        // Button calculation
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                // Calculation
+                String weight_value_string = enterWeight.getText().toString();
+                // Empty case
+                if(weight_value_string.isEmpty()) {
+                    enterWeight.setError("Please enter your weight");
+                    return;
+                }
+
+                int weight_value_int = Integer.parseInt(weight_value_string);
+                Integer dailyDose = weight_value_int * 27;
+
+                dailyDoseRec.setText(dailyDose + " UI");
+                enterWeight.getText().clear();
+            }
+        });
 
         // Retrieve user info from firebase
         Query query = reference.orderByChild("email").equalTo(user.getEmail());
@@ -463,6 +498,8 @@ public class PersonalFragment extends Fragment {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_REQUEST);
     }
+
+
 
 
 }

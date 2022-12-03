@@ -13,11 +13,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="-1dp"
+        android:layout_marginTop="0dp"
         android:background="@color/orange"
+        android:contentDescription="banner image"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_edit"
-        android:contentDescription="banner image">
+        android:src="@drawable/ic_edit">
 
     </ImageView>
 
@@ -31,12 +31,12 @@
             android:id="@+id/profileAvatar"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:padding="5dp"
             android:layout_marginStart="20dp"
             android:background="@color/light_orange"
-            android:src="@drawable/ic_camera"
+            android:contentDescription="avatar"
+            android:padding="5dp"
             android:scaleType="fitXY"
-            android:contentDescription="avatar" />
+            android:src="@drawable/ic_camera" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,9 +75,67 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="65dp"
         android:src="@drawable/ic_edit" />
+
+    <TextView
+        android:id="@+id/vitaminDheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="234dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="@string/vitamin_D_header"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#3F51B5" />
+
+    <EditText
+        android:id="@+id/enterWeight"
+        android:layout_width="160dp"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="361dp"
+        android:inputType="number"
+        android:hint="@string/enter_weight_lbs" />
+
+    <ImageButton
+        android:id="@+id/doubleArrowBtn"
+        android:layout_width="51dp"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="289dp"
+        android:backgroundTint="#1BF44336"
+        android:src="@drawable/ic_double_arrow" />
+
+    <TextView
+        android:id="@+id/dailyDoseRec"
+        android:layout_width="130dp"
+        android:layout_height="39dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="298dp"
+        android:layout_marginEnd="15dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/dailyRecSentence"
+        android:layout_width="127dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="337dp"
+        android:layout_marginEnd="13dp"
+        android:text="@string/basic_Dosage"
+        android:textAlignment="center" />
 
 
 </RelativeLayout>

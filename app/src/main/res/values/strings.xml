@@ -23,4 +23,7 @@
     <string name="location_text">"Latitude: %1$.4f \n Longitude: %2$.4f\n Timestamp: %3$tr"</string>
     <string name="location_permission_denied">Permission Denied</string>
     <string name="no_location">No Location</string>
+    <string name="vitamin_D_header">Vitamin D Intake</string>
+    <string name="basic_Dosage">Recommended Daily Vitamin D Intake</string>
+    <string name="enter_weight_lbs">Enter Weight (lbs)</string>
 </resources>
