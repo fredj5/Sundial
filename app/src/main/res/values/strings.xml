@@ -26,4 +26,6 @@
     <string name="vitamin_D_header">Vitamin D Intake</string>
     <string name="basic_Dosage">Recommended Daily Vitamin D Intake</string>
     <string name="enter_weight_lbs">Enter Weight (lbs)</string>
+    <string name="nav_details">Please visit the following pages\nfor more information.</string>
+    <string name="recommend">Your current recommendation:</string>
 </resources>

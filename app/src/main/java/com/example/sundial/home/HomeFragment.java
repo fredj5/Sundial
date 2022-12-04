@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class HomeFragment extends Fragment {
     FirebaseUser user;
     FirebaseDatabase database;
     DatabaseReference reference;
+    ImageView profileAvatar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class HomeFragment extends Fragment {
         user = firebaseAuth.getCurrentUser();
         database = database.getInstance();
         reference = database.getReference("Users");
+        profileAvatar = view.findViewById(R.id.profileAvatar);
 
         TextView welcome_text = view.findViewById(R.id.welcome_text);
 
@@ -49,9 +52,20 @@ public class HomeFragment extends Fragment {
                 // Check all data
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String name = "" + dataSnapshot.child("name").getValue();
+                    String image = "" + dataSnapshot.child("image").getValue();
 
                     // Set variables
-                    welcome_text.setText("Welcome, " + name + "!");
+                    welcome_text.setText("Welcome to Sundial,\n" + name + "!");
+
+                    try {
+                        Picasso.get().load(image).into(profileAvatar);
+                    }
+                    catch (Exception e) {
+                        Picasso.get().load(R.drawable.ic_camera).into(profileAvatar);
+                    }
+
+
+
                 }
             }
 
