@@ -26,6 +26,7 @@ public class InfoFragment extends Fragment {
 
         final TextView textView = binding.textInfo;
         infoViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
