@@ -136,13 +136,12 @@ public class PersonalFragment extends Fragment {
 
         // Button calculation
         calculateButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 // Calculation
                 String weight_value_string = enterWeight.getText().toString();
                 // Empty case
-                if(weight_value_string.isEmpty()) {
+                if (TextUtils.isEmpty(weight_value_string)) {
                     enterWeight.setError("Please enter your weight");
                     return;
                 }
@@ -152,8 +151,30 @@ public class PersonalFragment extends Fragment {
 
                 dailyDoseRec.setText(dailyDose + " UI");
                 enterWeight.getText().clear();
-            }
-        });
+
+                // Empty edit text check
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("DailyDose", dailyDose);
+
+                reference.child(user.getUid()).updateChildren(result)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                // Dismiss progress with successful update
+                                Toast.makeText(getActivity(), "Updated!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Dismiss progress and flash error
+                                Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        });
+            }});
 
         // Retrieve user info from firebase
         Query query = reference.orderByChild("email").equalTo(user.getEmail());
@@ -166,10 +187,13 @@ public class PersonalFragment extends Fragment {
                     String email = "" + dataSnapshot.child("email").getValue();
                     String image = "" + dataSnapshot.child("image").getValue();
                     String banner = "" + dataSnapshot.child("banner").getValue();
+                    String weight_string = "" + dataSnapshot.child("DailyDose").getValue();
 
                     // Set variables
                     nameDisplay.setText(name);
                     emailDisplay.setText(email);
+                    dailyDoseRec.setText(weight_string);
+
                     try {
                         Picasso.get().load(image).into(profileAvatar);
                     }

@@ -1,5 +1,7 @@
 package com.example.sundial.sun;
 
+import static androidx.constraintlayout.motion.widget.Debug.getLocation;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,12 +37,12 @@ public class SunFragment extends Fragment {
         SunViewModel sunViewModel =
                 new ViewModelProvider(this).get(SunViewModel.class);
 
-        /*getLoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getLocation();
-            }
-        });*/
+//        getLocation().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getLocation();
+//            }
+
 
         binding = FragmentSunBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
