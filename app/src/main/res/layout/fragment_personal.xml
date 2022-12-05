@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calculateButton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".personal.PersonalFragment">
@@ -77,7 +78,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="65dp"
-        android:src="@drawable/ic_edit" />
+        android:backgroundTint="@color/orange"
+        android:src="@drawable/ic_edit"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/vitaminDheader"
@@ -85,13 +88,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="234dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="222dp"
+        android:layout_marginEnd="2dp"
         android:fontFamily="sans-serif-condensed-light"
-        android:text="@string/vitamin_D_header"
+        android:text="@string/basic_Dosage"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#3F51B5" />
+        android:textColor="#3F51B5"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/enterWeight"
@@ -99,19 +106,22 @@
         android:layout_height="56dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="361dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="405dp"
+        android:hint="@string/enter_weight_lbs"
         android:inputType="number"
-        android:hint="@string/enter_weight_lbs" />
+        android:textSize="14sp" />
 
     <ImageButton
         android:id="@+id/doubleArrowBtn"
         android:layout_width="51dp"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="289dp"
         android:backgroundTint="#1BF44336"
-        android:src="@drawable/ic_double_arrow" />
+        android:src="@drawable/ic_double_arrow"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/dailyDoseRec"
@@ -119,34 +129,104 @@
         android:layout_height="39dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="298dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="295dp"
+        android:layout_marginEnd="16dp"
         android:text=""
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textColor="#3F51B5"
+        android:textSize="34sp" />
 
-    <TextView
-        android:id="@+id/dailyRecSentence"
-        android:layout_width="127dp"
-        android:layout_height="35dp"
+    <Button
+        android:id="@+id/logoutButtonPersonal"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="337dp"
-        android:layout_marginEnd="13dp"
-        android:text="@string/basic_Dosage"
-        android:textAlignment="center" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="278dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/black"
+        android:rotationX="0"
+        android:text="@string/logout"
+        android:textColor="#FFFFFF"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/sunPercentQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="-3dp"
+        android:layout_marginEnd="217dp"
+        android:layout_marginBottom="272dp"
+        android:text="@string/sunPercentage"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/enterSunPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="324dp"
+        android:hint="@string/enterSunPercent"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/dailySunIntakeHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="149dp"
+        android:text="@string/vitamin_d_intake_today"
+        android:textAlignment="center"
+        android:textColor="#3F51B5"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/dailySunIntake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="94dp"
+        android:textColor="@color/orange"
+        android:textSize="34sp" />
 
     <Spinner
         android:id="@+id/skin_selection"
-        android:text="Select Skin Type"
         android:layout_width="150dp"
         android:layout_height="56dp"
-        android:spinnerMode="dropdown"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="250dp"
         android:layout_marginLeft="200dp"
-        android:layout_marginBottom="361dp"/>
+        android:layout_marginBottom="230dp"
+        android:backgroundTint="#F44336"
+        android:spinnerMode="dropdown"
+        android:text="Select Skin Type" />
+
+    <TextView
+        android:id="@+id/skin_type"
+        android:layout_width="130dp"
+        android:layout_height="44dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-17dp"
+        android:layout_marginBottom="275dp"
+        android:text="@string/skin_type"
+        android:textColor="#3F51B5"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>
