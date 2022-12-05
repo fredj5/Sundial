@@ -40,4 +40,16 @@
         <item>Type 5</item>
         <item>Type 6</item>
     </string-array>
+    <string name="info_str">Check out these additional resources…</string>
+    <string name="info1">UV Radiation - CDC</string>
+    <string name="info1_sum">Information About UV Radiation</string>
+    <string name="skin_info">Fitzpatrick Skin Types</string>
+    <string name="article_title">Helpful Articles</string>
+    <string name="article1">Continue to Full Article >></string>
+    <string name="info2">UV Index Scale - EPA</string>
+    <string name="info2_sum">Sun Protection Based on UV Index</string>
+    <string name="article2">Continue to Full Article >></string>
+    <string name="info3">Vitamin D - Healthline</string>
+    <string name="info3_sum">Can Vitamin D Help You Lose Weight?</string>
+    <string name="article3">Continue to Full Article >></string>
 </resources>
