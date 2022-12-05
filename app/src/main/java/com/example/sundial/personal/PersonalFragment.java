@@ -19,10 +19,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -71,8 +75,11 @@ public class PersonalFragment extends Fragment {
     FloatingActionButton edit_profile_button;
     ImageButton calculateButton;
     EditText enterWeight;
+    EditText enterSunPercent;
     TextView dailyDoseRec;
-    TextView dailyRecSentence;
+    TextView dailySunIntake;
+    Spinner skinTones;
+    ArrayAdapter<CharSequence> adapter;
 
     // dialogue
     ProgressDialog progressDialog;
@@ -93,6 +100,8 @@ public class PersonalFragment extends Fragment {
     // Checking profile or banner/cover image
     String profileOrCoverPhoto;
 
+    //spinner flag
+    private boolean spinnerInitialized;
 
     public PersonalFragment() {
 
@@ -123,7 +132,14 @@ public class PersonalFragment extends Fragment {
         emailDisplay = view.findViewById(R.id.emailDisplay);
         edit_profile_button = view.findViewById(R.id.edit_profile_button);
         dailyDoseRec = view.findViewById(R.id.dailyDoseRec);
-        dailyRecSentence = view.findViewById(R.id.dailyRecSentence);
+        skinTones = view.findViewById(R.id.skin_selection);
+        dailySunIntake = view.findViewById(R.id.dailySunIntake);
+        enterSunPercent = view.findViewById(R.id.enterSunPercent);
+
+        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.skin_tones, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        skinTones.setAdapter(adapter);
 
         // Initialize progress dialogue
         progressDialog = new ProgressDialog(getActivity());
@@ -133,6 +149,8 @@ public class PersonalFragment extends Fragment {
         enterWeight = (EditText) view.findViewById(R.id.enterWeight);
         dailyDoseRec = (TextView) view.findViewById(R.id.dailyDoseRec);
 
+        //set flag
+        spinnerInitialized = false;
 
         // Button calculation
         calculateButton.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +158,7 @@ public class PersonalFragment extends Fragment {
             public void onClick(View view) {
                 // Calculation
                 String weight_value_string = enterWeight.getText().toString();
+                String percent_value_string = enterSunPercent.getText().toString();
                 // Empty case
                 if (TextUtils.isEmpty(weight_value_string)) {
                     enterWeight.setError("Please enter your weight");
@@ -148,13 +167,20 @@ public class PersonalFragment extends Fragment {
 
                 int weight_value_int = Integer.parseInt(weight_value_string);
                 Integer dailyDose = weight_value_int * 27;
+                int percent_value_int = Integer.parseInt(percent_value_string);
+                int dailyAbsorbed = (int) (dailyDose * (percent_value_int * 2 * 0.01));
+
+
 
                 dailyDoseRec.setText(dailyDose + " IU");
                 enterWeight.getText().clear();
+                dailySunIntake.setText(dailyAbsorbed + " IU");
+                enterSunPercent.getText().clear();
 
                 // Empty edit text check
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("DailyDose", dailyDose);
+                result.put("DailySunIntake", dailyAbsorbed);
 
                 reference.child(user.getUid()).updateChildren(result)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -188,11 +214,13 @@ public class PersonalFragment extends Fragment {
                     String image = "" + dataSnapshot.child("image").getValue();
                     String banner = "" + dataSnapshot.child("banner").getValue();
                     String weight_string = "" + dataSnapshot.child("DailyDose").getValue();
+                    String percent_string = "" + dataSnapshot.child("DailySunIntake").getValue();
 
                     // Set variables
                     nameDisplay.setText(name);
                     emailDisplay.setText(email);
                     dailyDoseRec.setText(weight_string);
+                    dailySunIntake.setText(percent_string + " IU");
 
                     try {
                         Picasso.get().load(image).into(profileAvatar);
@@ -212,6 +240,44 @@ public class PersonalFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        //skin tone listener
+        skinTones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!spinnerInitialized) {
+                    spinnerInitialized = true;
+                    return;
+                }
+                // Empty edit text check
+                HashMap<String, Object> result = new HashMap<>();
+
+                result.put("SkinTone", adapterView.getItemAtPosition(i).toString());
+
+                reference.child(user.getUid()).updateChildren(result)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                // Dismiss progress with successful update
+                                Toast.makeText(getActivity(), "Updated!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Dismiss progress and flash error
+                                Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        });
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
             }
         });
 
@@ -522,7 +588,6 @@ public class PersonalFragment extends Fragment {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_REQUEST);
     }
-
 
 
 
