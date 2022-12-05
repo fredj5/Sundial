@@ -75,8 +75,9 @@ public class PersonalFragment extends Fragment {
     FloatingActionButton edit_profile_button;
     ImageButton calculateButton;
     EditText enterWeight;
+    EditText enterSunPercent;
     TextView dailyDoseRec;
-    TextView dailyRecSentence;
+    TextView dailySunIntake;
     Spinner skinTones;
     ArrayAdapter<CharSequence> adapter;
 
@@ -131,8 +132,9 @@ public class PersonalFragment extends Fragment {
         emailDisplay = view.findViewById(R.id.emailDisplay);
         edit_profile_button = view.findViewById(R.id.edit_profile_button);
         dailyDoseRec = view.findViewById(R.id.dailyDoseRec);
-        dailyRecSentence = view.findViewById(R.id.dailyRecSentence);
         skinTones = view.findViewById(R.id.skin_selection);
+        dailySunIntake = view.findViewById(R.id.dailySunIntake);
+        enterSunPercent = view.findViewById(R.id.enterSunPercent);
 
         adapter = ArrayAdapter.createFromResource(getActivity(), R.array.skin_tones, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -156,6 +158,7 @@ public class PersonalFragment extends Fragment {
             public void onClick(View view) {
                 // Calculation
                 String weight_value_string = enterWeight.getText().toString();
+                String percent_value_string = enterSunPercent.getText().toString();
                 // Empty case
                 if (TextUtils.isEmpty(weight_value_string)) {
                     enterWeight.setError("Please enter your weight");
@@ -164,13 +167,20 @@ public class PersonalFragment extends Fragment {
 
                 int weight_value_int = Integer.parseInt(weight_value_string);
                 Integer dailyDose = weight_value_int * 27;
+                int percent_value_int = Integer.parseInt(percent_value_string);
+                int dailyAbsorbed = (int) (dailyDose * (percent_value_int * 2 * 0.01));
 
-                dailyDoseRec.setText(dailyDose + " UI");
+
+
+                dailyDoseRec.setText(dailyDose + " IU");
                 enterWeight.getText().clear();
+                dailySunIntake.setText(dailyAbsorbed + " IU");
+                enterSunPercent.getText().clear();
 
                 // Empty edit text check
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("DailyDose", dailyDose);
+                result.put("DailySunIntake", dailyAbsorbed);
 
                 reference.child(user.getUid()).updateChildren(result)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -204,11 +214,13 @@ public class PersonalFragment extends Fragment {
                     String image = "" + dataSnapshot.child("image").getValue();
                     String banner = "" + dataSnapshot.child("banner").getValue();
                     String weight_string = "" + dataSnapshot.child("DailyDose").getValue();
+                    String percent_string = "" + dataSnapshot.child("DailySunIntake").getValue();
 
                     // Set variables
                     nameDisplay.setText(name);
                     emailDisplay.setText(email);
                     dailyDoseRec.setText(weight_string);
+                    dailySunIntake.setText(percent_string + " IU");
 
                     try {
                         Picasso.get().load(image).into(profileAvatar);
