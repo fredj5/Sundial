@@ -3,6 +3,7 @@ package com.example.sundial.info;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.sundial.databinding.FragmentInfoBinding;
 public class InfoFragment extends Fragment {
 
     private FragmentInfoBinding binding;
+    TextView article3_link;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +32,9 @@ public class InfoFragment extends Fragment {
 
         binding = FragmentInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        article3_link = view.findViewById(R.id.textView5);
+        article3_link.setMovementMethod(LinkMovementMethod.getInstance());
 
         /* Button info_Button1 = (Button)view.findViewById(R.id.info_link1);
         info_Button1.setOnClickListener(new View.OnClickListener() {

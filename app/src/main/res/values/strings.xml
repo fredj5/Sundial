@@ -51,5 +51,5 @@
     <string name="article2">Continue to Full Article >></string>
     <string name="info3">Vitamin D - Healthline</string>
     <string name="info3_sum">Can Vitamin D Help You Lose Weight?</string>
-    <string name="article3">Continue to Full Article >></string>
+    <string name="article3">Continue to <a href="https://www.cdc.gov/nceh/features/uv-radiation-safety/index.html#:~:text=times%20a%20week.-,Risks,serious%20health%20issues%2C%20including%20cancer">Full Article</a></string>
 </resources>
