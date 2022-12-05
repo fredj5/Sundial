@@ -77,8 +77,7 @@ public class SunFragment extends Fragment {
     private String longitude;
     private String uv;
     private String burnTime;
-    private String skinTone;
-    private String skinToneString;
+    private int skinToneIndex;
     private int updates;
     private String[] timeToBurn;
 
@@ -102,29 +101,32 @@ public class SunFragment extends Fragment {
         binding = FragmentSunBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        uv = "";
+
+        timeToBurn = new String[6];
+
+        int updates = 0;
+
+
         Query query = reference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Check all data
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    skinToneString = "" + dataSnapshot.child("SkinTone").getValue();
+                    String skinTone = "" + dataSnapshot.child("SkinTone").getValue();
+                    System.out.println("skin tone: " + skinTone);
+
+                    skinToneIndex = Integer.parseInt(skinTone.substring(skinTone.length() - 1)) - 1;
 
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-        System.out.println("SkinToneSting: " + skinToneString);
-
-        uv = "";
-
-        timeToBurn = new String[6];
-
-        int updates = 0;
 
         startLocationUpdates();
 
@@ -208,20 +210,33 @@ public class SunFragment extends Fragment {
 
                             System.out.println("UV Index is: " + uv);
 
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    TextView uv_index = getView().findViewById(R.id.uv_index);
-                                    uv_index.setText(uv);
-                                }
-                            });
-
                             JSONObject exposureTime = result.getJSONObject("safe_exposure_time");
 
                             for (int i = 0; i < 6; i++) {
                                 timeToBurn[i] = exposureTime.get("st" + (i + 1)).toString();
                                 System.out.println("Time to burn for skin type " + i + ": " + timeToBurn[i]);
                             }
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    TextView uv_index = getView().findViewById(R.id.uv_index);
+                                    TextView burnTimeText = getView().findViewById(R.id.burn_time);
+
+                                    burnTime = timeToBurn[skinToneIndex];
+
+                                    uv_index.setText(uv);
+                                    burnTimeText.setText(burnTime + " minutes");
+                                }
+                            });
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                }
+                            });
 
                         } catch (IOException e) {
                             e.printStackTrace();

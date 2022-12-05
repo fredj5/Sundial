@@ -68,7 +68,7 @@
         android:height="60dp"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="25pt"
+        android:textSize="15pt"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
