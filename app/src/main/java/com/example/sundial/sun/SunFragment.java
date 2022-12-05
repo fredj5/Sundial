@@ -5,11 +5,13 @@ import static androidx.constraintlayout.motion.widget.Debug.getLocation;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.Manifest;
 import android.app.Activity;
@@ -40,13 +42,46 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.DecimalFormat;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SunFragment extends Fragment {
 
     private FragmentSunBinding binding;
 
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+    ImageView profileAvatar;
+
     private String latitude;
     private String longitude;
+    private String uv;
+    private String burnTime;
+    private String skinTone;
+    private String skinToneString;
+    private int updates;
+    private String[] timeToBurn;
+
 
     private LocationRequest mLocationRequest;
 
@@ -58,12 +93,38 @@ public class SunFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_sun, container, false);
-        
 
-        TextView longText = view.findViewById(R.id.textview_location);
-        
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        database = database.getInstance();
+        reference = database.getReference("Users");
+
         binding = FragmentSunBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        Query query = reference.orderByChild("email").equalTo(user.getEmail());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Check all data
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    skinToneString = "" + dataSnapshot.child("SkinTone").getValue();
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        System.out.println("SkinToneSting: " + skinToneString);
+
+        uv = "";
+
+        timeToBurn = new String[6];
+
+        int updates = 0;
 
         startLocationUpdates();
 
@@ -110,15 +171,74 @@ public class SunFragment extends Fragment {
     }
 
     public void onLocationChanged(Location location) {
+
         // New location has now been determined
+        if (updates == 0) {
+            updates++;
 
-        latitude = Double.toString(location.getLatitude());
-        longitude = Double.toString(location.getLongitude());
-        System.out.println(latitude);
-        System.out.println(longitude);
+            DecimalFormat df = new DecimalFormat("0.00");
 
-        // You can now create a LatLng Object for use with maps
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            latitude = df.format(location.getLatitude()).toString();
+            longitude = df.format(location.getLongitude()).toString();
+            System.out.println(latitude);
+            System.out.println(longitude);
+
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    try {
+                        OkHttpClient client = new OkHttpClient();
+
+                        Request request = new Request.Builder()
+                                .url("https://api.openuv.io/api/v1/uv?lat=" + latitude + "&lng=" + longitude)
+                                .get()
+                                .addHeader("x-access-token", "713bd4b8263403aca03f41cbd8a1f974")
+                                .build();
+
+                        try {
+                            Response response = client.newCall(request).execute();
+
+                            String jsonData = response.body().string();
+                            JSONObject jObject = new JSONObject(jsonData);
+                            JSONObject result = jObject.getJSONObject("result");
+
+                            uv = result.get("uv").toString();
+
+                            System.out.println("UV Index is: " + uv);
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    TextView uv_index = getView().findViewById(R.id.uv_index);
+                                    uv_index.setText(uv);
+                                }
+                            });
+
+                            JSONObject exposureTime = result.getJSONObject("safe_exposure_time");
+
+                            for (int i = 0; i < 6; i++) {
+                                timeToBurn[i] = exposureTime.get("st" + (i + 1)).toString();
+                                System.out.println("Time to burn for skin type " + i + ": " + timeToBurn[i]);
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            });
+
+            thread.start();
+
+            // You can now create a LatLng Object for use with maps
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        }
     }
 
     public void getLastLocation() {

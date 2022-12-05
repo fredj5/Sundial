@@ -28,4 +28,12 @@
     <string name="enter_weight_lbs">Enter Weight (lbs)</string>
     <string name="nav_details">Please visit the following pages\nfor more information.</string>
     <string name="recommend">Your current recommendation:</string>
+    <string-array name="skin_tones">
+        <item>Type 1</item>
+        <item>Type 2</item>
+        <item>Type 3</item>
+        <item>Type 4</item>
+        <item>Type 5</item>
+        <item>Type 6</item>
+    </string-array>
 </resources>

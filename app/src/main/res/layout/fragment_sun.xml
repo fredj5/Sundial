@@ -7,11 +7,74 @@
     tools:context=".sun.SunFragment">
 
     <TextView
-        android:id="@+id/textview_location"
+        android:id="@+id/uv_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="329dp" />
+        android:layout_marginTop="174dp"
+        android:layout_marginBottom="672dp"
+        android:height="45dp"
+        android:text="UV Index"
+        android:textAlignment="center"
+        android:textColor="@color/orange"
+        android:textSize="15pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/uv_index"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="219dp"
+        android:layout_marginBottom="612dp"
+        android:height="60dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/burn_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="433dp"
+        android:layout_marginBottom="413dp"
+        android:height="45dp"
+        android:text="Time to Burn"
+        android:textAlignment="center"
+        android:textColor="@color/orange"
+        android:textSize="15pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/burn_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="478dp"
+        android:layout_marginBottom="353dp"
+        android:height="60dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

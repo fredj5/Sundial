@@ -137,6 +137,17 @@
         android:text="@string/basic_Dosage"
         android:textAlignment="center" />
 
+    <Spinner
+        android:id="@+id/skin_selection"
+        android:text="Select Skin Type"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        android:spinnerMode="dropdown"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="200dp"
+        android:layout_marginBottom="361dp"/>
+
 
 </RelativeLayout>
 
