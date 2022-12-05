@@ -149,7 +149,7 @@ public class PersonalFragment extends Fragment {
                 int weight_value_int = Integer.parseInt(weight_value_string);
                 Integer dailyDose = weight_value_int * 27;
 
-                dailyDoseRec.setText(dailyDose + " UI");
+                dailyDoseRec.setText(dailyDose + " IU");
                 enterWeight.getText().clear();
 
                 // Empty edit text check

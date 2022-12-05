@@ -58,7 +58,6 @@ public class SunFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_sun, container, false);
-        
 
         TextView longText = view.findViewById(R.id.textview_location);
         
