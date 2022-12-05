@@ -196,7 +196,7 @@ public class SunFragment extends Fragment {
                         Request request = new Request.Builder()
                                 .url("https://api.openuv.io/api/v1/uv?lat=" + latitude + "&lng=" + longitude)
                                 .get()
-                                .addHeader("x-access-token", "713bd4b8263403aca03f41cbd8a1f974")
+                                .addHeader("x-access-token", "5004de8b897772489690865a13c5cd5d")
                                 .build();
 
                         try {
@@ -214,7 +214,7 @@ public class SunFragment extends Fragment {
 
                             for (int i = 0; i < 6; i++) {
                                 timeToBurn[i] = exposureTime.get("st" + (i + 1)).toString();
-                                System.out.println("Time to burn for skin type " + i + ": " + timeToBurn[i]);
+                                System.out.println("Time to burn for skin type " + (i + 1) + ": " + timeToBurn[i]);
                             }
 
                             getActivity().runOnUiThread(new Runnable() {
