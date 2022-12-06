@@ -227,10 +227,10 @@ public class SunFragment extends Fragment {
                                     burnTime = timeToBurn[skinToneIndex];
 
                                     uv_index.setText(uv);
-                                    if (uv != "0") {
-                                        burnTimeText.setText(burnTime + " minutes");
-                                    } else {
+                                    if (uv.equals("0")) {
                                         burnTimeText.setText("No burn risk");
+                                    } else {
+                                        burnTimeText.setText(burnTime + " minutes");
                                     }
                                 }
                             });
